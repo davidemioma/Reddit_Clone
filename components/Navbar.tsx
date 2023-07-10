@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import UserAccount from "./UserAccount";
 import { buttonVariants } from "./ui/button";
 import { getSession } from "@/actions/getSession";
 
@@ -25,8 +26,8 @@ const Navbar = async () => {
           </p>
         </Link>
 
-        {session ? (
-          <div>{session.user.username}</div>
+        {session?.user ? (
+          <UserAccount user={session?.user} />
         ) : (
           <Link href="/sign-in" className={buttonVariants()}>
             Sign In

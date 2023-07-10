@@ -18,7 +18,9 @@ const AuthForm = ({ className, ...props }: Props) => {
     setLoading(true);
 
     try {
-      await signIn("google");
+      await signIn("google", {
+        callbackUrl: `${window.location.origin}`,
+      });
     } catch (err) {
       toast({
         title: "Something went wrong.",
