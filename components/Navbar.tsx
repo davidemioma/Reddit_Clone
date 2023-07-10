@@ -2,8 +2,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { buttonVariants } from "./ui/button";
+import { getSession } from "@/actions/getSession";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await getSession();
+
   return (
     <nav className="fixed top-0 inset-x-0 h-fit z-10 bg-zinc-100 py-2 border-b border-zinc-300">
       <div className="container max-w-7xl mx-auto flex items-center justify-between gap-2">
@@ -22,9 +25,13 @@ const Navbar = () => {
           </p>
         </Link>
 
-        <Link href="/sign-in" className={buttonVariants()}>
-          Sign In
-        </Link>
+        {session ? (
+          <div>{session.user.username}</div>
+        ) : (
+          <Link href="/sign-in" className={buttonVariants()}>
+            Sign In
+          </Link>
+        )}
       </div>
     </nav>
   );
