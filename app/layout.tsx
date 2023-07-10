@@ -14,8 +14,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  authModal,
 }: {
   children: React.ReactNode;
+  authModal: React.ReactNode;
 }) {
   return (
     <html lang="en" className={cn(`bg-white text-slate-900 antialiased`)}>
@@ -25,7 +27,10 @@ export default function RootLayout({
           font.className
         )}
       >
+        {/* @ts-expect-error Server Component */}
         <Navbar />
+
+        {authModal}
 
         <div className="container h-full max-w-7xl mx-auto pt-12">
           {children}

@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { cn } from "@/libs/utils";
-import SignIn from "@/components/SignIn";
-import { buttonVariants } from "@/components/ui/button";
+import Signup from "@/components/Signup";
 import { ChevronLeft } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   return (
     <div className="absolute inset-0">
       <div className="h-full w-full max-w-2xl mx-auto flex flex-col justify-center items-center gap-20">
@@ -19,7 +19,7 @@ export default function SignInPage() {
           Home
         </Link>
 
-        <SignIn />
+        <Signup />
       </div>
     </div>
   );

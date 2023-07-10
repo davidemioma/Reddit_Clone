@@ -64,6 +64,9 @@ export const authOptions: AuthOptions = {
         username: dbUser.username,
       };
     },
+    // redirect() {
+    //   return "/";
+    // },
   },
 };
 
