@@ -7,6 +7,11 @@
 //npx prisma db push - to push to your database.
 //npx prisma migrate reset - to reset your databse.
 
+enum VoteType {
+  UP
+  DOWN
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -60,5 +65,109 @@ model User {
  
   accounts Account[]
   sessions Session[]
+  posts Post[]
+  comments Comment[]
+  votes Vote[]
+  CommentVotes CommentVote[]
+  subscriptions Subscription[]
+  createdSubreddits Subreddit[] @relation("CreatedBy")
+
+}
+
+model Subreddit{
+  id String @id @default(uuid())
+  name String @unique
+  creatorId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  creator User? @relation("CreatedBy", fields: [creatorId], references: [id])
+
+  posts Post[]
+  subscribers Subscription[]
+
+  @@index([name])
+  @@index([creatorId])
+}
+
+model Subscription{
+  userId String
+  subredditId String
+
+  user User @relation(fields: [userId], references: [id])
+  subreddit Subreddit @relation(fields: [subredditId],references: [id])
+
+  @@id([userId, subredditId])
+
+  @@index([userId])
+  @@index([subredditId])
+}
+
+model Post{
+  id String @id @default(uuid())
+  title String
+  content Json?
+  authorId String
+  subredditId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User @relation(fields: [authorId], references: [id])
+  subreddit Subreddit @relation(fields: [subredditId],references: [id])
+
+  comments Comment[]
+  votes Vote[]
+
+  @@index([authorId])
+  @@index([subredditId])
+}
+
+model Comment{
+  id String @id @default(uuid())
+  postId String
+  authorId String
+  replyToId String?
+  text String
+  commentId String?
+  createdAt DateTime @default(now())
+
+  post Post @relation(fields: [postId],references: [id])
+  author User @relation(fields: [authorId],references: [id])
+  replyTo Comment? @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  replies Comment[] @relation("ReplyTo")
+  votes CommentVote[]
+
+  @@index([postId])
+  @@index([authorId])
+  @@index([replyToId])
+}
+
+model Vote{
+  postId String
+  userId String
+  type VoteType
+
+  post Post @relation(fields: [postId],references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId],references: [id])
+
+  @@id([userId, postId])
+
+  @@index([postId])
+  @@index([userId])
+}
+
+model CommentVote{
+  userId String
+  commentId String
+  type VoteType
+
+  user User @relation(fields: [userId],references: [id])
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@id([userId, commentId])
+
+  @@index([userId])
+  @@index([commentId])
 }
 
