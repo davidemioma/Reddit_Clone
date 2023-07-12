@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getSession } from "@/actions/getSession";
 import { getSubreddit } from "@/actions/getSubreddit";
 import MiniCreatePosts from "@/components/MiniCreatePosts";
+import Feed from "@/components/Feed";
 
 export default async function SubredditPage({
   params,
@@ -26,7 +27,7 @@ export default async function SubredditPage({
 
       <MiniCreatePosts session={session} />
 
-      {/* Post Feed */}
+      <Feed initialPosts={subreddit.posts} subredditName={subreddit.name} />
     </>
   );
 }

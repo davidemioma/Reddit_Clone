@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import Providers from "@/components/providers";
 
 const font = Nunito_Sans({ subsets: ["latin"] });
 
@@ -27,16 +28,18 @@ export default function RootLayout({
           font.className
         )}
       >
-        {/* @ts-expect-error Server Component */}
-        <Navbar />
+        <Providers>
+          {/* @ts-expect-error Server Component */}
+          <Navbar />
 
-        {authModal}
+          {authModal}
 
-        <div className="container h-full max-w-7xl mx-auto pt-12">
-          {children}
-        </div>
+          <div className="container h-full max-w-7xl mx-auto pt-12">
+            {children}
+          </div>
 
-        <Toaster />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
