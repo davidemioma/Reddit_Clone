@@ -77,9 +77,9 @@ export default async function Layout({
               <Link
                 className={buttonVariants({
                   variant: "outline",
-                  className: "w-full mb-6",
+                  className: "w-full mb-6 outline",
                 })}
-                href={`r/${slug}/submit`}
+                href={`/r/${slug}/submit`}
               >
                 Create Post
               </Link>
