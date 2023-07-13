@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import axios from "axios";
 import Post from "./Post";
+import { Loader2 } from "lucide-react";
 import { ExtendedPost } from "@/types/db";
 import { useSession } from "next-auth/react";
 import { useIntersection } from "@mantine/hooks";
@@ -45,6 +46,12 @@ const Feed = ({ initialPosts, subredditName }: Props) => {
 
   const posts = data?.pages?.flatMap((page) => page) ?? initialPosts;
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
+    }
+  }, [entry, fetchNextPage]);
+
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
       {posts.map((post, i) => {
@@ -85,6 +92,12 @@ const Feed = ({ initialPosts, subredditName }: Props) => {
           );
         }
       })}
+
+      {isFetchingNextPage && (
+        <li className="flex justify-center">
+          <Loader2 className="w-6 h-6 text-zinc-500 animate-spin" />
+        </li>
+      )}
     </ul>
   );
 };

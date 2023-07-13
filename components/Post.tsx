@@ -6,6 +6,7 @@ import EditorOutput from "./EditorOutput";
 import { MessageSquare } from "lucide-react";
 import { formatTimeToNow } from "@/libs/utils";
 import { Post, User, Vote } from "@prisma/client";
+import UpvoteClient from "./upvote/UpvoteClient";
 
 type PartialVote = Pick<Vote, "type">;
 
@@ -32,7 +33,11 @@ const Post = ({
   return (
     <div className="bg-white rounded-md shadow">
       <div className="flex justify-between py-4 px-6">
-        <div></div>
+        <UpvoteClient
+          postId={post.id}
+          initialVote={currentVote?.type!}
+          initialVoteAmount={votesAmount}
+        />
 
         <div className="flex-1">
           <div className="max-h-40 mt-1 text-xs text-gray-500">
