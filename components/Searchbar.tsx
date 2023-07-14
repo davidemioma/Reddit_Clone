@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Users } from "lucide-react";
 import useDebounce from "@/hooks/use-debounce";
 import { usePathname, useRouter } from "next/navigation";
+import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 import {
   Command,
   CommandEmpty,
@@ -23,12 +24,21 @@ const Searchbar = () => {
 
   const { loading, results } = useDebounce(input);
 
+  const commandRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(commandRef, () => {
+    setInput("");
+  });
+
   useEffect(() => {
     setInput("");
   }, [pathname]);
 
   return (
-    <Command className="relative z-50 max-w-lg rounded-lg border overflow-visible">
+    <Command
+      ref={commandRef}
+      className="relative z-50 max-w-lg rounded-lg border overflow-visible"
+    >
       <CommandInput
         className="outline-none border-none focus:border-none focus:outline-none ring-0"
         value={input}

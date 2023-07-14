@@ -37,7 +37,7 @@ const useDebounce = (input: string) => {
 
     setTimeout(() => {
       onSearchHandler();
-    }, 3000);
+    }, 1500);
   }, [input]);
 
   return { loading, results };
