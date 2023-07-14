@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
+import ToFeedBtn from "@/components/ToFeedBtn";
 import { getSession } from "@/actions/getSession";
 import { getSubreddit } from "@/actions/getSubreddit";
 import SubsToggleBtn from "@/components/SubsToggleBtn";
@@ -31,7 +32,7 @@ export default async function Layout({
   return (
     <div className="sm:container max-w-7xl mx-auto h-full pt-12">
       <div>
-        {/* Button to take us back */}
+        <ToFeedBtn />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-6">
           <div className="flex flex-col col-span-2 gap-6">{children}</div>
