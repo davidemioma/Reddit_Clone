@@ -43,7 +43,7 @@ const CommentVote = ({ commentId, votesCount, voteType }: Props) => {
         commentId,
       };
 
-      await axios.patch("/api/subreddit/comment/vote", payload);
+      await axios.patch("/api/subreddit/post/comment/vote", payload);
 
       if (currentVoteType === voteType) {
         setCurrentVoteType(null);

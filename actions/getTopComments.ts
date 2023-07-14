@@ -17,6 +17,9 @@ export const getTopComments = async (postId: string) => {
             author: true,
             votes: true,
           },
+          orderBy: {
+            createdAt: "desc",
+          },
         },
       },
       orderBy: {

@@ -58,6 +58,12 @@ const Comment = ({ postId, comment, votesCount, currentVote }: Props) => {
       const payload: CommentRequest = { postId, replyToId, text };
 
       await axios.patch("/api/subreddit/post/comment", payload);
+
+      setInput("");
+
+      setIsReplying(false);
+
+      router.refresh();
     } catch (err) {
       return toast({
         title: "Something went wrong.",
