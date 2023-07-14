@@ -29,7 +29,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          {/* @ts-expect-error Server Component */}
+          {/* @ts-ignore-error*/}
           <Navbar />
 
           {authModal}
