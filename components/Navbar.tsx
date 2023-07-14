@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Searchbar from "./Searchbar";
 import UserAccount from "./UserAccount";
 import { buttonVariants } from "./ui/button";
 import { getSession } from "@/actions/getSession";
@@ -25,6 +26,8 @@ const Navbar = async () => {
             Reddit
           </p>
         </Link>
+
+        <Searchbar />
 
         {session?.user ? (
           <UserAccount user={session?.user} />
