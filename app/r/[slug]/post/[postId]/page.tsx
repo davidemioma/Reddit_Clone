@@ -28,7 +28,7 @@ export default async function PostPage({
   return (
     <div className="h-full flex flex-col sm:flex-row items-center sm:items-start justify-between">
       <Suspense fallback={<PostVoteShell />}>
-        {/* @ts-expect-error server component */}
+        {/* @ts-ignore-error */}
         <UpvoteServer
           postId={post?.id!}
           getData={async () => {
@@ -52,7 +52,7 @@ export default async function PostPage({
         <Suspense
           fallback={<Loader2 className="h-5 w-5 animate-spin text-zinc-500" />}
         >
-          {/* @ts-expect-error server component */}
+          {/* @ts-ignore-error */}
           <CommentSection postId={postId} />
         </Suspense>
       </div>
