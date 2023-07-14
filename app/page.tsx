@@ -7,6 +7,10 @@ import { buttonVariants } from "@/components/ui/button";
 import { getCustomFeedPosts } from "@/actions/getCustomFeedPosts";
 import { getGeneralFeedPosts } from "@/actions/getGeneralFeedPosts";
 
+export const dynamic = "force-dynamic";
+
+export const fetchCache = "force-no-store";
+
 export default async function Home() {
   const session = await getSession();
 
